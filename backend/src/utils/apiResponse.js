@@ -55,7 +55,7 @@ const sendForbidden = (res, message = 'Permission denied') => {
 };
 
 const sendValidationError = (res, errors) => {
-  return res.status(400).json({
+  return res.status(422).json({
     success: false,
     message: 'Validation failed',
     errors, // Array of field-specific errors

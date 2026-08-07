@@ -36,7 +36,7 @@ app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   }
   // Zod errors that slipped through (shouldn't happen with our middleware)
   if (err.name === 'ZodError') {
-    return sendError(res, 'Validation error', 400);
+    return sendError(res, 'Validation error', 422);
   }
   // Unexpected programming errors: log everything, hide details from client
   console.error('💥 UNEXPECTED ERROR:', err);
