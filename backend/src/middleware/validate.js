@@ -17,7 +17,7 @@ const validate = (schema, source = 'body') => (req, res, next) => {
   const result = schema.safeParse(req[source]);
   if (!result.success) {
     // Format Zod errors into readable field-level messages
-    const errors = result.error.errors.map((err) => ({
+    const errors = result.error.issues.map((err) => ({
       field: err.path.join('.'),
       message: err.message,
     }));
