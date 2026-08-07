@@ -1,5 +1,16 @@
 require('dotenv').config();
-
+/**
+ * Configuration Module
+ *
+ * WHY CENTRALIZE CONFIG:
+ * If you read process.env.DATABASE_URL in 10 different files, and you forget
+ * to set it, you get a cryptic runtime error deep in the app. By validating
+ * all required environment variables HERE, at startup, the app refuses to
+ * start and immediately tells you exactly what's missing.
+ *
+ * Also: config values are only referenced in one place.
+ * If an env variable name changes, you update one line, not 10.
+ */
 const required = (name) => {
   const value = process.env[name];
   if (!value) {
