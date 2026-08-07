@@ -50,3 +50,48 @@ The API server will be available at `http://localhost:5000`.
 - **Sorted Stocks**: `GET http://localhost:5000/api/v1/stocks?sort=price&order=desc`
 - **Stock Quote**: `GET http://localhost:5000/api/v1/stocks/AAPL`
 - **Create Alert**: `POST http://localhost:5000/api/v1/alerts` with body `{"symbol": "AAPL", "targetPrice": 200, "condition": "above"}`
+
+# 📈 QuantPulse — Algorithmic Trading Intelligence Platform
+## Phase 2: Routing Architecture & Controller Pattern (Complete)
+QuantPulse is a modular, high-performance backtesting and portfolio intelligence platform. This repository contains the backend codebase structured using a professional three-layer architecture (Routes, Controllers, Services) designed for horizontal scaling and robust reliability.
+---
+## 🏗 Current Architecture Overview
+We have migrated from a monolithic script to a clean **Separation of Concerns (SoC)** model:
+```
+    HTTP Client (Postman / Browser)
+                 │
+                 ▼
+         [ Routes Layer ]          <-- Path routing & Zod validation middleware
+                 │
+                 ▼
+       [ Controllers Layer ]       <-- Express req/res handling & HTTP status parsing
+                 │
+                 ▼
+        [ Services Layer ]         <-- Pure business logic (currently using in-memory stores)
+```
+- **Configuration**: Centralized and validated at boot time via `src/config/index.js`.
+- **Validation**: Schema-driven request body/param validation using **Zod**.
+- **Error Handling**: Custom `AppError` operational error classes managed by a centralized Express error handler.
+- **Async Safety**: High-order `asyncHandler` wrapper preventing uncaught Promise rejections.
+---
+## 📂 Project Structure
+```
+backend/
+├── .env.example                # Deployment environment template
+├── package.json
+└── src/
+    ├── server.js               # Entry point (bootstrapping, global middleware)
+    ├── config/
+    │   └── index.js            # Environment config validator
+    ├── middleware/
+    │   └── validate.js         # Generic Zod validation factory
+    ├── schemas/
+    │   ├── alerts.schema.js    # Data verification shapes
+    │   └── watchlists.schema.js
+    ├── routes/
+    │   ├── index.js            # API v1 Router multiplexer
+    │   ├── stocks.routes.js    # Stock feeds
+    │   ├── alerts.routes.js    # Price alerts
+    │   └── watchlists.routes.js# User watchlists (Exercise 1)
+    ├── controllers/
+    │   ├── stocks.controller.js
