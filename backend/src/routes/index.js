@@ -1,6 +1,8 @@
 const { Router } = require('express');
 const stocksRouter = require('./stocks.routes');
 const alertsRouter = require('./alerts.routes');
+const watchlistsRouter = require('./watchlists.routes');
+
 const router = Router();
 /**
  * API v1 Router
@@ -11,5 +13,8 @@ const router = Router();
  */
 router.use('/stocks', stocksRouter);
 router.use('/alerts', alertsRouter);
+router.use('/watchlists', watchlistsRouter);
+
 // Export for use in server.js
 module.exports = router;
+
