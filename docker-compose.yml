@@ -1,0 +1,38 @@
+# docker-compose.yml
+# This file defines your local development services.
+# Every developer on the team runs this one command to get a database running.
+
+version: "3.9"  # Use Docker Compose v3.9 syntax
+
+services:
+  # ─────────────────────────────────────────────────────
+  # PostgreSQL Database
+  # ─────────────────────────────────────────────────────
+  postgres:
+    image: postgres:16-alpine            # Use PostgreSQL v16 (Alpine = small image)
+    container_name: quantpulse_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: quantpulse          # Database username
+      POSTGRES_PASSWORD: quantpulse_dev  # Database password (dev only — not real money)
+      POSTGRES_DB: quantpulse            # Database name
+    ports:
+      - "5433:5432"                      # Expose PostgreSQL on localhost:5433
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Persist data between restarts
+
+  # ─────────────────────────────────────────────────────
+  # Redis (we'll use this in Phase 8, defined here early)
+  # ─────────────────────────────────────────────────────
+  redis:
+    image: redis:7-alpine
+    container_name: quantpulse_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+volumes:
+  postgres_data:
+  redis_data:
