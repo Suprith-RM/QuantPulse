@@ -32,10 +32,9 @@ const config = {
   cors: {
     frontendUrl: optional('FRONTEND_URL', 'http://localhost:3000'),
   },
-  // These will be uncommented as we add more phases:
-  // database: {
-  //   url: required('DATABASE_URL'),
-  // },
+  database: {
+    url: required('DATABASE_URL'),
+  },
   // auth: {
   //   jwtSecret: required('JWT_SECRET'),
   //   jwtExpiresIn: optional('JWT_EXPIRES_IN', '7d'),

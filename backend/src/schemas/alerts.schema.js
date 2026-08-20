@@ -19,7 +19,8 @@ const createAlertSchema = z.object({
   targetPrice: z
     .number({ invalid_type_error: 'targetPrice must be a number' })
     .positive('targetPrice must be greater than 0')
-    .finite(),
+    .finite()
+    .max(1000000, 'targetPrice must be less than or equal to 1,000,000'),
   condition: z.enum(['above', 'below'], {
     errorMap: () => ({ message: "condition must be either 'above' or 'below'" }),
   }),

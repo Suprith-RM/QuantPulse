@@ -1,0 +1,12 @@
+{
+  "development": {
+    "url": {
+      "ENV": "DATABASE_URL"
+    },
+    "dir": "src/migrations",
+    "migrationsDir": "src/migrations",
+    "migrations-dir": "src/migrations",
+    "direction": "up",
+    "count": 1
+  }
+}
